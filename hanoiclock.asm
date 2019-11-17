@@ -51,44 +51,64 @@ section .text
         int 0x80                        ; Interrupção Kernel Linux
         
         ;MENSAGEM PARA ESCOLHA DE PINO DE ORIGEM
-        ;mov edx,len_origem              ; recebe o tamanho da mensagem
-        ;mov ecx,escolha_origem          ; recebe a mensagem
-        ;mov ebx,1                       ; entrada padrão 
-        ;mov eax,4                       ; informa que será uma escrita no ecrã
-        ;int 0x80                        ; Interrupção Kernel Linux
+        mov edx,len_origem              ; recebe o tamanho da mensagem
+        mov ecx,escolha_origem          ; recebe a mensagem
+        mov ebx,1                       ; entrada padrão 
+        mov eax,4                       ; informa que será uma escrita no ecrã
+        int 0x80                        ; Interrupção Kernel Linux
         
         ;ENTRADA DE TECLADO PARA ESCOLHA DE PINO DE ORIGEM
-        ;mov edx, 5                      ; tamanho da entrada 
-        ;mov ecx, origem                 ; armazenamento em 'disco'
-        ;mov ebx, 0                      ; entrada padrão
-        ;mov eax, 3                      ; informa que serÃ¡ uma leitura           
-        ;int 0x80                        ; Interrupção Kernel Linux
+        mov edx, 5                      ; tamanho da entrada 
+        mov ecx, origem                 ; armazenamento em 'disco'
+        mov ebx, 0                      ; entrada padrão
+        mov eax, 3                      ; informa que serÃ¡ uma leitura           
+        int 0x80                        ; Interrupção Kernel Linux
         
         ;MENSAGEM PARA ESCOLHA DE PINO DE DESTINO
-        ;mov edx,len_destino             ; recebe o tamanho da mensagem
-        ;mov ecx,escolha_destino         ; recebe a mensagem
-        ;mov ebx,1                       ; entrada padrão 
-        ;mov eax,4                       ; informa que será uma escrita no ecrã
-        ;int 0x80                        ; Interrupção Kernel Linux
+        mov edx,len_destino             ; recebe o tamanho da mensagem
+        mov ecx,escolha_destino         ; recebe a mensagem
+        mov ebx,1                       ; entrada padrão 
+        mov eax,4                       ; informa que será uma escrita no ecrã
+        int 0x80                        ; Interrupção Kernel Linux
         
         ;ENTRADA DE TECLADO PARA ESCOLHA DE PINO DE DESTINO
-        ;mov edx, 5                      ; tamanho da entrada 
-        ;mov ecx, destino                ; armazenamento em 'disco'
-        ;mov ebx, 0                      ; entrada padrão
-        ;mov eax, 3                      ; informa que serÃ¡ uma leitura           
-        ;int 0x80                        ; Interrupção Kernel Linux
-        
-        mov edx, disco                   ; Move o endereço referente a quantidade de discos para o registrador edx
-        call    _atoi
-        
-_origem1:
-        ; REFERENCIA PARA AS 3 PILHAS (3 PINOS) DA TORRE DE HANOI EM ORDEM
-        push dword 0x2                  ; pino de trabalho (pilha)
-        push dword 0x3                  ; pino de destino (pilha)
-        push dword 0x1                  ; pino de origem (pilha)
-        push eax                        ; eax na pilha ( n = numero de discos inicial )
+        mov edx, 5                      ; tamanho da entrada 
+        mov ecx, destino                ; armazenamento em 'disco'
+        mov ebx, 0                      ; entrada padrão
+        mov eax, 3                      ; informa que serÃ¡ uma leitura           
+        int 0x80                        ; Interrupção Kernel Linux
 
-        call clock                 ; Chama a função rhanoi
+        ;MENSAGEM PARA ESCOLHA DE PINO DE TRABALHO
+        mov edx,len_trabalho             ; recebe o tamanho da mensagem
+        mov ecx,escolha_trabalho         ; recebe a mensagem
+        mov ebx,1                       ; entrada padrão 
+        mov eax,4                       ; informa que será uma escrita no ecrã
+        int 0x80                        ; Interrupção Kernel Linux
+        
+        ;ENTRADA DE TECLADO PARA ESCOLHA DE PINO DE TRABALHO
+        mov edx, 5                      ; tamanho da entrada 
+        mov ecx, trabalho               ; armazenamento em 'disco'
+        mov ebx, 0                      ; entrada padrão
+        mov eax, 3                      ; informa que serÃ¡ uma leitura           
+        int 0x80                        ; Interrupção Kernel Linux
+
+        mov edx, trabalho               ; insere o pino de trabalho no registrador edx
+        call _atoi                      ; converte o valor do pino de trabalho para int
+        push eax                        ; manda o pino de trabalho para a pilha 
+
+        mov edx, destino                ; insere o pino de destino no registrador edx
+        call _atoi                      ; converte o valor do pino de destino para int
+        push eax                        ; manda o pino de destino para a pilha
+
+        mov edx, origem                 ; insere o pino de origem no registrador edx
+        call _atoi                      ; converte o valor do pino de origem para int
+        push eax                        ; manda o pino de origem para a pilha
+
+        mov edx, disco
+        call _atoi
+        push eax                        ; manda o endereço do pino de destino para a pilha
+        
+        call clock                      ; Chama a função clock
 
         ; FIM DO PROGRAMA
         mov eax, 1                      ; Saida do sistema
@@ -145,7 +165,7 @@ _atoi:
 
         ;PASSO2 - MOVER PINO E IMPRIMIR
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
-        push dword [ebp+20]             ; pega o pino de trabalho
+        push dword [ebp+16]             ; pega o pino de trabalho
         push dword [ebp+12]             ; coloca na pilha o pino de origem
         push dword [ebp+8]              ; coloca na pilha o pino de o numero de disco inicial
         call imprime                    ; Chama a função 'imprime'
@@ -159,6 +179,8 @@ _atoi:
         dec eax                         ; decrementa 1 de eax
         push dword eax                  ; poe eax na pilha
         call anti                       ; (recursividade)
+
+        jp fim
 
     anti:
 
@@ -179,7 +201,7 @@ _atoi:
 
         ;PASSO2 - MOVER PINO E IMPRIMIR
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
-        push dword [ebp+20]             ; pega o pino de destino
+        push dword [ebp+20]             ; pega o pino de trabalho
         push dword [ebp+12]             ; coloca na pilha o pino de origem
         push dword [ebp+8]              ; coloca na pilha o pino de o numero de disco inicial
         call imprime                    ; Chama a função 'imprime'
@@ -196,12 +218,12 @@ _atoi:
 
         ;PASSO4 - MOVER PINO E IMPRIMIR
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
-        push dword [ebp+20]             ; pega o pino de origem referenciado pelo parâmetro ebp+16
-        push dword [ebp+12]             ; coloca na pilha o pino de origem
+        push dword [ebp+16]             ; pega o pino de destino referenciado pelo parâmetro ebp+16
+        push dword [ebp+20]             ; coloca na pilha o pino de trabalho
         push dword [ebp+8]              ; coloca na pilha o pino de o numero de disco inicial
         call imprime                    ; Chama a função 'imprime'
 
-        ;PASSO5 - RECURSIVIDADE ANTI
+        ;PASSO5 - RECURSIVIDADE ANTI 
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
         push dword [ebp+20]             ; coloca na pilha o pino de trabalho
         push dword [ebp+16]             ; coloca na pilha o pino de destino
@@ -210,6 +232,8 @@ _atoi:
         dec eax                         ; decrementa 1 de eax
         push dword eax                  ; poe eax na pilha
         call anti                       ; (recursividade)
+
+        jp fim
 
     fim: 
 
@@ -250,6 +274,8 @@ section .data
     len_origem equ $-escolha_origem
     escolha_destino db 'ESCOLHA O PINO DE DESTINO (1, 2 OU 3)', 0xf
     len_destino equ $-escolha_destino
+    escolha_trabalho db 'ESCOLHA O PINO DE TRABALHO (1, 2 OU 3)', 0x12
+    len_trabalho equ $-escolha_trabalho
 
     ; FORMATAÃ‡ÃƒO DE SAÃ DA
     msg:
@@ -265,7 +291,8 @@ section .data
 section .bss
 
     disco resb 5                 ; Armazenamento de dados não inicializado
-    origem resb 2
-    destino resb 2
+    origem resb 3
+    destino resb 3
+    trabalho resb 3
     
     
