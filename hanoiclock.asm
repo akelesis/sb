@@ -104,9 +104,9 @@ section .text
         call _atoi                      ; converte o valor do pino de origem para int
         push eax                        ; manda o pino de origem para a pilha
 
-        mov edx, disco
-        call _atoi
-        push eax                        ; manda o endereço do pino de destino para a pilha
+        mov edx, disco                  ; insere numero de discos no registrador edx
+        call _atoi                      ; converte o numero de discos para para int
+        push eax                        ; manda o numero de discos para a pilha
         
         call clock                      ; Chama a função clock
 
