@@ -165,15 +165,15 @@ _atoi:
 
         ;PASSO2 - MOVER PINO E IMPRIMIR
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
-        push dword [ebp+16]             ; pega o pino de trabalho
+        push dword [ebp+16]             ; pega o pino de destino
         push dword [ebp+12]             ; coloca na pilha o pino de origem
         push dword [ebp+8]              ; coloca na pilha o pino de o numero de disco inicial
         call imprime                    ; Chama a função 'imprime'
         
         ;PASSO3 - RECURSIVIDADE
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
-        push dword [ebp+16]             ; coloca na pilha o pino de origem
-        push dword [ebp+12]             ; coloca na pilha o pino de destino
+        push dword [ebp+12]             ; coloca na pilha o pino de origem
+        push dword [ebp+16]             ; coloca na pilha o pino de destino
         push dword [ebp+20]             ; coloca na pilha o pino de trabalho
         mov eax,[ebp+8]                 ; move para o registrador eax o espaço reservado ao número de discos atuais
         dec eax                         ; decrementa 1 de eax
@@ -208,9 +208,9 @@ _atoi:
 
         ;PASSO3 - RECURSIVIDADE CLOCK
         add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
-        push dword [ebp+12]             ; coloca na pilha o pino de trabalho
-        push dword [ebp+16]             ; coloca na pilha o pino de origem
-        push dword [ebp+20]             ; coloca na pilha o pino de destino
+        push dword [ebp+20]             ; coloca na pilha o pino de trabalho
+        push dword [ebp+12]             ; coloca na pilha o pino de origem
+        push dword [ebp+16]             ; coloca na pilha o pino de destino
         mov eax,[ebp+8]                 ; move para o registrador eax o espaço reservado ao número de discos atuais
         dec eax                         ; decrementa 1 de eax
         push dword eax                  ; poe eax na pilha
@@ -244,7 +244,7 @@ _atoi:
     imprime:
 
         push ebp                        ; Empilha
-        mov ebp, esp                    ; ebp recebe o endereÃ§o do topo da pilha
+        mov ebp, esp                    ; ebp recebe o endereço do topo da pilha
 
         mov eax, [ebp + 12]             ; pino de trabalho
         add al, '0'                     ; conversao para ASCII
@@ -257,7 +257,7 @@ _atoi:
         mov edx, lenght                 ; tamanho da mensagem formatada
         mov ecx, msg                    ; mensagem formatada
         mov ebx, 1                      ; dá permissão para a saida
-        mov eax, 4                      ; informa que será uma escrita no ecrã
+        mov eax, 4                      ; informa que será uma escrita na tela
         int 0x80                        ; Interrupção para kernel do linux
 
         mov     esp, ebp                ; Copiando o valor do registrador EBP para o ESP
