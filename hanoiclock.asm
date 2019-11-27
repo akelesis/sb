@@ -15,7 +15,7 @@
 ;;; RODANDO EM LINUX
 ; Abrir diretório da aplicação
 ; nasm -f elf hanoiclock.asm
-; ld hanoiclock.o -e hanoiclock -o hanoiclock
+; ld -m elf_i386 -s -o hanoiclock hanoiclock.o
 ; ./hanoiclock
 ;______________________________________________________________________________________________________________;
 
@@ -293,7 +293,7 @@ section .data
 
     msg_clock db '------RESOLUCAO EM SENTIDO HORARIO------', 0X16
     clock_len equ $-msg_clock
-    msg_anti db '------RESOLUCAO EM SENTIDO HORARIO------', 0X20
+    msg_anti db '------RESOLUCAO EM SENTIDO ANTI-HORARIO------', 0X20
     anti_len equ $-msg_anti
 
     ; FORMATAÃ‡ÃƒO DE SAÃ DA
