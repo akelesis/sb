@@ -108,7 +108,21 @@ section .text
         call _atoi                      ; converte o numero de discos para para int
         push eax                        ; manda o numero de discos para a pilha
         
-        call clock                      ; Chama a função clock
+        mov eax, 4                      ; informa escrita na tela
+        mov ebx, 1                      ; saída padrão
+        mov ecx, msg_clock              ; mensagem a ser enviada
+        mov edx, clock_len              ; tamanho da mensagem
+        int 0x80                        ; chamada ao kernel
+
+        call anti                       ; chama a função anti
+
+        mov eax, 4                      ; informa escrita na tela
+        mov ebx, 1                      ; saída padrão
+        mov ecx, msg_anti               ; mensagem a ser impressa
+        mov edx, anti_len               ; tamanho da mensagem
+        int 0x80                        ; chamada ao kernel
+
+        call clock                      ; chama a função clock
 
         ; FIM DO PROGRAMA
         mov eax, 1                      ; Saida do sistema
@@ -276,6 +290,11 @@ section .data
     len_destino equ $-escolha_destino
     escolha_trabalho db 'ESCOLHA O PINO DE TRABALHO (1, 2 OU 3)', 0x12
     len_trabalho equ $-escolha_trabalho
+
+    msg_clock db '------RESOLUCAO EM SENTIDO HORARIO------', 0X16
+    clock_len equ $-msg_clock
+    msg_anti db '------RESOLUCAO EM SENTIDO HORARIO------', 0X20
+    anti_len equ $-msg_anti
 
     ; FORMATAÃ‡ÃƒO DE SAÃ DA
     msg:
