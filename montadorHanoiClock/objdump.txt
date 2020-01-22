@@ -1,0 +1,394 @@
+
+hanoiclock.o:     formato de ficheiro elf32-i386
+
+
+Desmontagem da secção .text:
+
+00000000 <_start>:
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	ba 20 00 00 00       	mov    $0x20,%edx
+   8:	b9 00 00 00 00       	mov    $0x0,%ecx
+   d:	bb 01 00 00 00       	mov    $0x1,%ebx
+  12:	b8 04 00 00 00       	mov    $0x4,%eax
+  17:	cd 80                	int    $0x80
+  19:	ba 05 00 00 00       	mov    $0x5,%edx
+  1e:	b9 00 00 00 00       	mov    $0x0,%ecx
+  23:	bb 00 00 00 00       	mov    $0x0,%ebx
+  28:	b8 03 00 00 00       	mov    $0x3,%eax
+  2d:	cd 80                	int    $0x80
+  2f:	ba 25 00 00 00       	mov    $0x25,%edx
+  34:	b9 20 00 00 00       	mov    $0x20,%ecx
+  39:	bb 01 00 00 00       	mov    $0x1,%ebx
+  3e:	b8 04 00 00 00       	mov    $0x4,%eax
+  43:	cd 80                	int    $0x80
+  45:	ba 05 00 00 00       	mov    $0x5,%edx
+  4a:	b9 05 00 00 00       	mov    $0x5,%ecx
+  4f:	bb 00 00 00 00       	mov    $0x0,%ebx
+  54:	b8 03 00 00 00       	mov    $0x3,%eax
+  59:	cd 80                	int    $0x80
+  5b:	ba 26 00 00 00       	mov    $0x26,%edx
+  60:	b9 45 00 00 00       	mov    $0x45,%ecx
+  65:	bb 01 00 00 00       	mov    $0x1,%ebx
+  6a:	b8 04 00 00 00       	mov    $0x4,%eax
+  6f:	cd 80                	int    $0x80
+  71:	ba 05 00 00 00       	mov    $0x5,%edx
+  76:	b9 08 00 00 00       	mov    $0x8,%ecx
+  7b:	bb 00 00 00 00       	mov    $0x0,%ebx
+  80:	b8 03 00 00 00       	mov    $0x3,%eax
+  85:	cd 80                	int    $0x80
+  87:	ba 27 00 00 00       	mov    $0x27,%edx
+  8c:	b9 6b 00 00 00       	mov    $0x6b,%ecx
+  91:	bb 01 00 00 00       	mov    $0x1,%ebx
+  96:	b8 04 00 00 00       	mov    $0x4,%eax
+  9b:	cd 80                	int    $0x80
+  9d:	ba 05 00 00 00       	mov    $0x5,%edx
+  a2:	b9 0b 00 00 00       	mov    $0xb,%ecx
+  a7:	bb 00 00 00 00       	mov    $0x0,%ebx
+  ac:	b8 03 00 00 00       	mov    $0x3,%eax
+  b1:	cd 80                	int    $0x80
+  b3:	ba 0b 00 00 00       	mov    $0xb,%edx
+  b8:	e8 64 00 00 00       	call   121 <_atoi>
+  bd:	50                   	push   %eax
+  be:	ba 08 00 00 00       	mov    $0x8,%edx
+  c3:	e8 59 00 00 00       	call   121 <_atoi>
+  c8:	50                   	push   %eax
+  c9:	ba 05 00 00 00       	mov    $0x5,%edx
+  ce:	e8 4e 00 00 00       	call   121 <_atoi>
+  d3:	50                   	push   %eax
+  d4:	ba 00 00 00 00       	mov    $0x0,%edx
+  d9:	e8 43 00 00 00       	call   121 <_atoi>
+  de:	50                   	push   %eax
+  df:	b8 04 00 00 00       	mov    $0x4,%eax
+  e4:	bb 01 00 00 00       	mov    $0x1,%ebx
+  e9:	b9 92 00 00 00       	mov    $0x92,%ecx
+  ee:	ba 29 00 00 00       	mov    $0x29,%edx
+  f3:	cd 80                	int    $0x80
+  f5:	e8 8f 00 00 00       	call   189 <anti>
+  fa:	b8 04 00 00 00       	mov    $0x4,%eax
+  ff:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 104:	b9 bb 00 00 00       	mov    $0xbb,%ecx
+ 109:	ba 2e 00 00 00       	mov    $0x2e,%edx
+ 10e:	cd 80                	int    $0x80
+ 110:	e8 2c 00 00 00       	call   141 <clock>
+ 115:	b8 01 00 00 00       	mov    $0x1,%eax
+ 11a:	bb 00 00 00 00       	mov    $0x0,%ebx
+ 11f:	cd 80                	int    $0x80
+
+00000121 <_atoi>:
+ 121:	31 c0                	xor    %eax,%eax
+ 123:	bb 0a 00 00 00       	mov    $0xa,%ebx
+
+00000128 <_atoi.loop>:
+ 128:	0f b6 0a             	movzbl (%edx),%ecx
+ 12b:	42                   	inc    %edx
+ 12c:	83 f9 30             	cmp    $0x30,%ecx
+ 12f:	72 0f                	jb     140 <_atoi.done>
+ 131:	83 f9 39             	cmp    $0x39,%ecx
+ 134:	77 0a                	ja     140 <_atoi.done>
+ 136:	83 e9 30             	sub    $0x30,%ecx
+ 139:	0f af c3             	imul   %ebx,%eax
+ 13c:	01 c8                	add    %ecx,%eax
+ 13e:	eb e8                	jmp    128 <_atoi.loop>
+
+00000140 <_atoi.done>:
+ 140:	c3                   	ret    
+
+00000141 <clock>:
+ 141:	55                   	push   %ebp
+ 142:	89 e5                	mov    %esp,%ebp
+ 144:	8b 45 08             	mov    0x8(%ebp),%eax
+ 147:	83 f8 00             	cmp    $0x0,%eax
+ 14a:	0f 8e a4 00 00 00    	jle    1f4 <fim>
+ 150:	48                   	dec    %eax
+ 151:	ff 75 10             	pushl  0x10(%ebp)
+ 154:	ff 75 14             	pushl  0x14(%ebp)
+ 157:	ff 75 0c             	pushl  0xc(%ebp)
+ 15a:	50                   	push   %eax
+ 15b:	e8 29 00 00 00       	call   189 <anti>
+ 160:	83 c4 0c             	add    $0xc,%esp
+ 163:	ff 75 10             	pushl  0x10(%ebp)
+ 166:	ff 75 0c             	pushl  0xc(%ebp)
+ 169:	ff 75 08             	pushl  0x8(%ebp)
+ 16c:	e8 87 00 00 00       	call   1f8 <imprime>
+ 171:	83 c4 0c             	add    $0xc,%esp
+ 174:	ff 75 0c             	pushl  0xc(%ebp)
+ 177:	ff 75 10             	pushl  0x10(%ebp)
+ 17a:	ff 75 14             	pushl  0x14(%ebp)
+ 17d:	8b 45 08             	mov    0x8(%ebp),%eax
+ 180:	48                   	dec    %eax
+ 181:	50                   	push   %eax
+ 182:	e8 02 00 00 00       	call   189 <anti>
+ 187:	7a 6b                	jp     1f4 <fim>
+
+00000189 <anti>:
+ 189:	55                   	push   %ebp
+ 18a:	89 e5                	mov    %esp,%ebp
+ 18c:	8b 45 08             	mov    0x8(%ebp),%eax
+ 18f:	83 f8 00             	cmp    $0x0,%eax
+ 192:	7e 60                	jle    1f4 <fim>
+ 194:	48                   	dec    %eax
+ 195:	ff 75 14             	pushl  0x14(%ebp)
+ 198:	ff 75 10             	pushl  0x10(%ebp)
+ 19b:	ff 75 0c             	pushl  0xc(%ebp)
+ 19e:	50                   	push   %eax
+ 19f:	e8 e5 ff ff ff       	call   189 <anti>
+ 1a4:	83 c4 0c             	add    $0xc,%esp
+ 1a7:	ff 75 14             	pushl  0x14(%ebp)
+ 1aa:	ff 75 0c             	pushl  0xc(%ebp)
+ 1ad:	ff 75 08             	pushl  0x8(%ebp)
+ 1b0:	e8 43 00 00 00       	call   1f8 <imprime>
+ 1b5:	83 c4 0c             	add    $0xc,%esp
+ 1b8:	ff 75 14             	pushl  0x14(%ebp)
+ 1bb:	ff 75 0c             	pushl  0xc(%ebp)
+ 1be:	ff 75 10             	pushl  0x10(%ebp)
+ 1c1:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1c4:	48                   	dec    %eax
+ 1c5:	50                   	push   %eax
+ 1c6:	e8 76 ff ff ff       	call   141 <clock>
+ 1cb:	83 c4 0c             	add    $0xc,%esp
+ 1ce:	ff 75 10             	pushl  0x10(%ebp)
+ 1d1:	ff 75 14             	pushl  0x14(%ebp)
+ 1d4:	ff 75 08             	pushl  0x8(%ebp)
+ 1d7:	e8 1c 00 00 00       	call   1f8 <imprime>
+ 1dc:	83 c4 0c             	add    $0xc,%esp
+ 1df:	ff 75 14             	pushl  0x14(%ebp)
+ 1e2:	ff 75 10             	pushl  0x10(%ebp)
+ 1e5:	ff 75 0c             	pushl  0xc(%ebp)
+ 1e8:	8b 45 08             	mov    0x8(%ebp),%eax
+ 1eb:	48                   	dec    %eax
+ 1ec:	50                   	push   %eax
+ 1ed:	e8 97 ff ff ff       	call   189 <anti>
+ 1f2:	7a 00                	jp     1f4 <fim>
+
+000001f4 <fim>:
+ 1f4:	89 ec                	mov    %ebp,%esp
+ 1f6:	5d                   	pop    %ebp
+ 1f7:	c3                   	ret    
+
+000001f8 <imprime>:
+ 1f8:	55                   	push   %ebp
+ 1f9:	89 e5                	mov    %esp,%ebp
+ 1fb:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 1fe:	04 30                	add    $0x30,%al
+ 200:	a2 f1 00 00 00       	mov    %al,0xf1
+ 205:	8b 45 10             	mov    0x10(%ebp),%eax
+ 208:	04 30                	add    $0x30,%al
+ 20a:	a2 fe 00 00 00       	mov    %al,0xfe
+ 20f:	ba 17 00 00 00       	mov    $0x17,%edx
+ 214:	b9 e9 00 00 00       	mov    $0xe9,%ecx
+ 219:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 21e:	b8 04 00 00 00       	mov    $0x4,%eax
+ 223:	cd 80                	int    $0x80
+ 225:	89 ec                	mov    %ebp,%esp
+ 227:	5d                   	pop    %ebp
+ 228:	c3                   	ret    
+
+Desmontagem da secção .data:
+
+00000000 <menu>:
+   0:	44                   	inc    %esp
+   1:	49                   	dec    %ecx
+   2:	47                   	inc    %edi
+   3:	49                   	dec    %ecx
+   4:	54                   	push   %esp
+   5:	45                   	inc    %ebp
+   6:	20 41 20             	and    %al,0x20(%ecx)
+   9:	51                   	push   %ecx
+   a:	55                   	push   %ebp
+   b:	41                   	inc    %ecx
+   c:	4e                   	dec    %esi
+   d:	54                   	push   %esp
+   e:	49                   	dec    %ecx
+   f:	44                   	inc    %esp
+  10:	41                   	inc    %ecx
+  11:	44                   	inc    %esp
+  12:	45                   	inc    %ebp
+  13:	20 44 45 20          	and    %al,0x20(%ebp,%eax,2)
+  17:	44                   	inc    %esp
+  18:	49                   	dec    %ecx
+  19:	53                   	push   %ebx
+  1a:	43                   	inc    %ebx
+  1b:	4f                   	dec    %edi
+  1c:	53                   	push   %ebx
+  1d:	3a 20                	cmp    (%eax),%ah
+  1f:	0a               	or     0x53(%ebp),%al
+
+00000020 <escolha_origem>:
+  20:	45                   	inc    %ebp
+  21:	53                   	push   %ebx
+  22:	43                   	inc    %ebx
+  23:	4f                   	dec    %edi
+  24:	4c                   	dec    %esp
+  25:	48                   	dec    %eax
+  26:	41                   	inc    %ecx
+  27:	20 4f 20             	and    %cl,0x20(%edi)
+  2a:	50                   	push   %eax
+  2b:	49                   	dec    %ecx
+  2c:	4e                   	dec    %esi
+  2d:	4f                   	dec    %edi
+  2e:	20 44 45 20          	and    %al,0x20(%ebp,%eax,2)
+  32:	4f                   	dec    %edi
+  33:	52                   	push   %edx
+  34:	49                   	dec    %ecx
+  35:	47                   	inc    %edi
+  36:	45                   	inc    %ebp
+  37:	4d                   	dec    %ebp
+  38:	20 28                	and    %ch,(%eax)
+  3a:	31 2c 20             	xor    %ebp,(%eax,%eiz,1)
+  3d:	32 20                	xor    (%eax),%ah
+  3f:	4f                   	dec    %edi
+  40:	55                   	push   %ebp
+  41:	20 33                	and    %dh,(%ebx)
+  43:	29 0d        	sub    %ecx,0x4f435345
+
+00000045 <escolha_destino>:
+  45:	45                   	inc    %ebp
+  46:	53                   	push   %ebx
+  47:	43                   	inc    %ebx
+  48:	4f                   	dec    %edi
+  49:	4c                   	dec    %esp
+  4a:	48                   	dec    %eax
+  4b:	41                   	inc    %ecx
+  4c:	20 4f 20             	and    %cl,0x20(%edi)
+  4f:	50                   	push   %eax
+  50:	49                   	dec    %ecx
+  51:	4e                   	dec    %esi
+  52:	4f                   	dec    %edi
+  53:	20 44 45 20          	and    %al,0x20(%ebp,%eax,2)
+  57:	44                   	inc    %esp
+  58:	45                   	inc    %ebp
+  59:	53                   	push   %ebx
+  5a:	54                   	push   %esp
+  5b:	49                   	dec    %ecx
+  5c:	4e                   	dec    %esi
+  5d:	4f                   	dec    %edi
+  5e:	20 28                	and    %ch,(%eax)
+  60:	31 2c 20             	xor    %ebp,(%eax,%eiz,1)
+  63:	32 20                	xor    (%eax),%ah
+  65:	4f                   	dec    %edi
+  66:	55                   	push   %ebp
+  67:	20 33                	and    %dh,(%ebx)
+  69:	29 0f                	sub    %ecx,(%edi)
+
+0000006b <escolha_trabalho>:
+  6b:	45                   	inc    %ebp
+  6c:	53                   	push   %ebx
+  6d:	43                   	inc    %ebx
+  6e:	4f                   	dec    %edi
+  6f:	4c                   	dec    %esp
+  70:	48                   	dec    %eax
+  71:	41                   	inc    %ecx
+  72:	20 4f 20             	and    %cl,0x20(%edi)
+  75:	50                   	push   %eax
+  76:	49                   	dec    %ecx
+  77:	4e                   	dec    %esi
+  78:	4f                   	dec    %edi
+  79:	20 44 45 20          	and    %al,0x20(%ebp,%eax,2)
+  7d:	54                   	push   %esp
+  7e:	52                   	push   %edx
+  7f:	41                   	inc    %ecx
+  80:	42                   	inc    %edx
+  81:	41                   	inc    %ecx
+  82:	4c                   	dec    %esp
+  83:	48                   	dec    %eax
+  84:	4f                   	dec    %edi
+  85:	20 28                	and    %ch,(%eax)
+  87:	31 2c 20             	xor    %ebp,(%eax,%eiz,1)
+  8a:	32 20                	xor    (%eax),%ah
+  8c:	4f                   	dec    %edi
+  8d:	55                   	push   %ebp
+  8e:	20 33                	and    %dh,(%ebx)
+  90:	29 12                	sub    %edx,(%edx)
+
+00000092 <msg_clock>:
+  92:	2d 2d 2d 2d 2d       	sub    $0x2d2d2d2d,%eax
+  97:	2d 52 45 53 4f       	sub    $0x4f534552,%eax
+  9c:	4c                   	dec    %esp
+  9d:	55                   	push   %ebp
+  9e:	43                   	inc    %ebx
+  9f:	41                   	inc    %ecx
+  a0:	4f                   	dec    %edi
+  a1:	20 45 4d             	and    %al,0x4d(%ebp)
+  a4:	20 53 45             	and    %dl,0x45(%ebx)
+  a7:	4e                   	dec    %esi
+  a8:	54                   	push   %esp
+  a9:	49                   	dec    %ecx
+  aa:	44                   	inc    %esp
+  ab:	4f                   	dec    %edi
+  ac:	20 48 4f             	and    %cl,0x4f(%eax)
+  af:	52                   	push   %edx
+  b0:	41                   	inc    %ecx
+  b1:	52                   	push   %edx
+  b2:	49                   	dec    %ecx
+  b3:	4f                   	dec    %edi
+  b4:	2d 2d 2d 2d 2d       	sub    $0x2d2d2d2d,%eax
+  b9:	2d 16          	sub    $0x2d2d2d16,%eax
+
+000000bb <msg_anti>:
+  bb:	2d 2d 2d 2d 2d       	sub    $0x2d2d2d2d,%eax
+  c0:	2d 52 45 53 4f       	sub    $0x4f534552,%eax
+  c5:	4c                   	dec    %esp
+  c6:	55                   	push   %ebp
+  c7:	43                   	inc    %ebx
+  c8:	41                   	inc    %ecx
+  c9:	4f                   	dec    %edi
+  ca:	20 45 4d             	and    %al,0x4d(%ebp)
+  cd:	20 53 45             	and    %dl,0x45(%ebx)
+  d0:	4e                   	dec    %esi
+  d1:	54                   	push   %esp
+  d2:	49                   	dec    %ecx
+  d3:	44                   	inc    %esp
+  d4:	4f                   	dec    %edi
+  d5:	20 41 4e             	and    %al,0x4e(%ecx)
+  d8:	54                   	push   %esp
+  d9:	49                   	dec    %ecx
+  da:	2d 48 4f 52 41       	sub    $0x41524f48,%eax
+  df:	52                   	push   %edx
+  e0:	49                   	dec    %ecx
+  e1:	4f                   	dec    %edi
+  e2:	2d 2d 2d 2d 2d       	sub    $0x2d2d2d2d,%eax
+  e7:	2d 20          	sub    $0x49524f20,%eax
+
+000000e9 <msg>:
+  e9:	4f                   	dec    %edi
+  ea:	52                   	push   %edx
+  eb:	49                   	dec    %ecx
+  ec:	47                   	inc    %edi
+  ed:	45                   	inc    %ebp
+  ee:	4d                   	dec    %ebp
+  ef:	3a 20                	cmp    (%eax),%ah
+
+000000f1 <pino_origem>:
+  f1:	20 20                	and    %ah,(%eax)
+  f3:	7c 20                	jl     115 <pino_destino+0x17>
+  f5:	44                   	inc    %esp
+  f6:	45                   	inc    %ebp
+  f7:	53                   	push   %ebx
+  f8:	54                   	push   %esp
+  f9:	49                   	dec    %ecx
+  fa:	4e                   	dec    %esi
+  fb:	4f                   	dec    %edi
+  fc:	3a 20                	cmp    (%eax),%ah
+
+000000fe <pino_destino>:
+  fe:	20 0a                	and    %cl,(%edx)
+
+Desmontagem da secção .bss:
+
+00000000 <disco>:
+   0:	00 00                	add    %al,(%eax)
+   2:	00 00                	add    %al,(%eax)
+	...
+
+00000005 <origem>:
+   5:	00 00                	add    %al,(%eax)
+	...
+
+00000008 <destino>:
+   8:	00 00                	add    %al,(%eax)
+	...
+
+0000000b <trabalho>:
+   b:	00 00                	add    %al,(%eax)
+	...

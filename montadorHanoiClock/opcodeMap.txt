@@ -1,30 +1,71 @@
-push ebp = 55
-mov ebp gr = 89
-mov edx iv = bA
-mov ecx iv = b9
-mov ebx iv = bB
-mov eax iv = b8
-int = cd
-call = e8
-push eax = 50
-xor = 31
-movzx = 0f
-inc edx = 42
-cmp reg = 83
-jb = 72
-ja = 77
-sub ecx = 83
-jmp = eb
-imul = 0f
-ret = c3
-mov reg stack = 8b
-jle = 0f    /*jle 0x80491f4*/
-dec eax = 48
-push dword = ff
-add esp = 83
-jp = 7a
-mov stack stack = 89 
-jle = 7e    /*jle 0x80491f4*/
-pop stack = 5d
-add al = 04
-mov mem al = a2
+push ebp | 55 | 1
+mov ebp, esp | 89 e5 | 2
+mov edx, len | ba 20 00 00 00 | 5
+mov ecx, menu | b9 ilc | 5
+mov ebx, 1 | bb 01 00 00 00 | 5
+mov eax, 4 = b8 04 00 00 00 | 5
+int 0x80 | cd 80 | 2
+mov edx, 5 | ba 05 00 00 00 | 5
+mov ecx, disco | b9 ilc | 5
+mov ebx, 0 | bb 00 00 00 00 | 5
+mov eax, 3 | b8 03 00 00 00 | 5
+mov edx,len_origem | ba 25 00 00 00 | 5
+mov ecx,escolha_origem | b9 ilc | 5
+mov ecx, origem | b9 ilc | 5
+mov edx,len_destino | ba 26 00 00 00 | 5
+mov ecx,escolha_destino | b9 ilc | 5
+mov ecx, destino | b9 ilc | 5
+mov edx,len_trabalho | ba 27 00 00 00 | 5
+mov ecx,escolha_trabalho | b9 ilc | 5
+mov ecx, trabalho | b9 ilc | 5
+mov edx, trabalho | ba ilc | 5
+call _atoi | e8 64 00 00 00 | 5
+push eax | 50 | 1
+mov edx, destino | ba ilc | 5
+mov edx, origem | ba ilc | 5
+mov edx, disco | ba ilc | 5
+mov eax, 4 | b8 04 00 00 00 | 5
+mov ebx, 1 | bb 01 00 00 00 | 5
+mov ecx, msg_clock | b9 ilc | 5
+mov edx, clock_len | ba ilc | 5
+call anti | e8 8f 00 00 00 | 5
+mov ecx, msg_anti | b9 ilc | 5
+mov edx, anti_len | ba ilc | 5
+call clock | e8 2c 00 00 00 | 5
+mov eax, 1 | b8 01 00 00 00 | 5
+xor eax, eax | 31 c0 | 2
+mov ebx, 10 | bb 0a 00 00 00 | 5
+movzx ecx, byte [edx] | 0f b6 0a | 3
+inc edx | 42 | 1
+cmp ecx, '0' | 83 f9 30 | 3
+jb .done | 72 ilc | 2
+cmp ecx, '9' | 83 f9 39 | 3
+ja .done | 77 ilc | 2
+sub ecx, '0' | 83 e9 30 | 3
+imul eax, ebx | 0f af c3 | 3
+add eax, ecx | 01 c8 | 2
+jmp .loop | eb ilc | 2
+ret | c3 | 1
+mov ebp,esp | 89 e5 | 2
+mov eax,[ebp+8] | 8b 45 08 | 3
+cmp eax,0x0 | 83 f8 00 | 3
+jle fim | 0f ilc | 6
+dec eax | 48 | 1
+push dword [ebp+16] | ff 75 10 | 3
+push dword [ebp+20] | ff 75 14 | 3
+push dword [ebp+12] | ff 75 0c | 3
+push dword eax | 50 | 1
+add esp,12 | 83 c4 0c | 3
+push dword [ebp+8] | ff 75 08 | 3
+call imprime | e8 ilc | 5
+jp fim | 7a ilc | 2
+mov esp,ebp | 89 ec | 2
+pop ebp | 5d | 1
+mov eax, [ebp + 12] | 8b 45 0c | 3
+add al, '0' | 04 30 | 2
+mov [pino_origem], al | a2 ilc | 5
+mov eax, [ebp + 16] | 8b 45 10 | 3
+mov [pino_destino], al | a2 ilc | 5
+mov edx, lenght | ba ilc | 5
+mov ecx, msg | b9 ilc | 5
+
