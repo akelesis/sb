@@ -116,6 +116,7 @@ for index, letter in enumerate(program):
         blockCounter += 1
     else:
         blockCounter = 0
+        block = block[2] + block[3] + block[0] + block[1]
         finalProg.append(block)
         block = program[index] 
     
