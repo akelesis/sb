@@ -165,8 +165,8 @@ _atoi:
         push ebp                        ; salva o registrador ebp na pilha
         mov ebp, esp                     ; ebp recebe o endereço do topo da pilha
 
-        mov eax,[ebp+8]                 ; pega o a posição do primeiro elemento da pilha e mov para eax
-        cmp eax,0x0                     ; cmp faz o comparativo do valor que está em eax com 0x0 = 0 em hexadecimal 
+        mov eax, [ebp+8]                 ; pega o a posição do primeiro elemento da pilha e mov para eax
+        cmp eax, 0x0                     ; cmp faz o comparativo do valor que está em eax com 0x0 = 0 em hexadecimal 
         jle fim                         ; se eax for menor ou igual a 0, vai para o fim, desempilhar
         
         ;PASSO1 - RECURSIVIDADE
@@ -202,7 +202,7 @@ _atoi:
         mov ebp, esp                    ; ebp recebe o endereço do topo da pilha
 
         mov eax, [ebp+8]                ; pega o a posição do primeiro elemento da pilha e mov para eax
-        cmp eax,0x0                     ; cmp faz o comparativo do valor que está em eax com 0x0 = 0 em hexadecimal 
+        cmp eax, 0x0                     ; cmp faz o comparativo do valor que está em eax com 0x0 = 0 em hexadecimal 
         jle fim
 
         ;PASSO1 - RECURSIVIDADE ANTI
@@ -231,14 +231,14 @@ _atoi:
         call clock                      ; (recursividade)
 
         ;PASSO4 - MOVER PINO E IMPRIMIR
-        add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
+        add esp, 12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
         push dword [ebp+16]             ; pega o pino de destino referenciado pelo parâmetro ebp+16
         push dword [ebp+20]             ; coloca na pilha o pino de trabalho
         push dword [ebp+8]              ; coloca na pilha o pino de o numero de disco inicial
         call imprime                    ; Chama a função 'imprime'
 
         ;PASSO5 - RECURSIVIDADE ANTI 
-        add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
+        add esp, 12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
         push dword [ebp+20]             ; coloca na pilha o pino de trabalho
         push dword [ebp+16]             ; coloca na pilha o pino de destino
         push dword [ebp+12]             ; coloca na pilha o pino de origem

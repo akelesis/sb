@@ -7,7 +7,7 @@ codes = []
 opcodes = []
 ilcs = []
 tableofSymbols = []
-ilcTotal = 150
+ilcTotal = 151
 result = []
 strippedCodes = []
 hanoiLines = []
@@ -65,9 +65,10 @@ while("" in hanoiLines) :
 output = open("output.o", "w")
 
 """ VARRER O CODIGO FONTE E SUBSTITUIR LINHAS POR OPCODES """
-for line in hanoiLines:
+for idx, line in enumerate(hanoiLines):
     for index, code in enumerate(strippedCodes):
         if line == code:
+            print(idx, line)
             opcode = opcodes[index]
             """ CASO ENCONTRE A FLAG ILC SUBSTITUIR PELO VALOR DO ILC EM HEXADECIMAL """
             if opcode.find("ilc") > -1 :
@@ -81,7 +82,7 @@ for line in hanoiLines:
             opcode = opcode.replace(" ", "")
             """ ADICIONA O OPCODE AO CONTEUDO DE PROGRAMA """
             program += opcode
-            ilcTotal += int(ilcs[index])
+            ilcTotal += int(ilcs[index]) + 1
             break
     else:
         """ ADICIONA À TABELA """
