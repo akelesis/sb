@@ -66,9 +66,9 @@ output = open("output.o", "w")
 
 """ VARRER O CODIGO FONTE E SUBSTITUIR LINHAS POR OPCODES """
 for idx, line in enumerate(hanoiLines):
+    print(idx, line)
     for index, code in enumerate(strippedCodes):
         if line == code:
-            print(idx, line)
             opcode = opcodes[index]
             """ CASO ENCONTRE A FLAG ILC SUBSTITUIR PELO VALOR DO ILC EM HEXADECIMAL """
             if opcode.find("ilc") > -1 :
