@@ -104,9 +104,12 @@ for line in hanoiLines:
 
 tableofSymbols.append(ilcTotal)
 
+
+""" RETIRAR CAMPOS VAZIOS """
 while("" in tableofSymbols) : 
     tableofSymbols.remove("") 
 
+""" DIVIDE EM BLOCOS DE 4 SIMBOLOS """
 for index, letter in enumerate(program):
     if blockCounter < 3:
         block += program[index]
@@ -116,7 +119,7 @@ for index, letter in enumerate(program):
         finalProg.append(block)
         block = program[index] 
     
-
+""" DIVIDE EM LINHAS DE 8 BLOCOS """
 for index, block in enumerate(finalProg):
     output.write(finalProg[index])
     if(lineCounter < 7):
