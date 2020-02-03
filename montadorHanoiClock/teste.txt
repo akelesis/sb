@@ -1,0 +1,14 @@
+push ebp                        
+mov ebp, esp
+
+mov edx, len
+mov ecx, menu
+mov ebx, 1 
+mov eax, 4
+int 0x80
+
+mov edx, 5 
+mov ecx, disco
+mov ebx, 0
+mov eax, 3           
+int 0x80

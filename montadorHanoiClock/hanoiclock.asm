@@ -37,10 +37,10 @@ section .text
         mov ebp, esp                    ; ebp recebe o ponteiro para o topo da pilha (esp)
 
         ; MENSAGEM DE BOAS VINDAS
-        mov edx,len                     ; recebe o tamanho da mensagem
-        mov ecx,menu                    ; recebe a mensagem
-        mov ebx,1                       ; entrada padrão 
-        mov eax,4                       ; informa que será uma escrita no ecrã
+        mov edx, len                     ; recebe o tamanho da mensagem
+        mov ecx, menu                    ; recebe a mensagem
+        mov ebx, 1                       ; entrada padrão 
+        mov eax, 4                       ; informa que será uma escrita no ecrã
         int 0x80                        ; Interrupção Kernel Linux
 
         ;ENTRADA DO TECLADO (USUÁRIO DIGITA A QUANTIDADE DE DISCOS)
@@ -51,10 +51,10 @@ section .text
         int 0x80                        ; Interrupção Kernel Linux
         
         ;MENSAGEM PARA ESCOLHA DE PINO DE ORIGEM
-        mov edx,len_origem              ; recebe o tamanho da mensagem
-        mov ecx,escolha_origem          ; recebe a mensagem
-        mov ebx,1                       ; entrada padrão 
-        mov eax,4                       ; informa que será uma escrita no ecrã
+        mov edx, len_origem              ; recebe o tamanho da mensagem
+        mov ecx, escolha_origem          ; recebe a mensagem
+        mov ebx, 1                       ; entrada padrão 
+        mov eax, 4                       ; informa que será uma escrita no ecrã
         int 0x80                        ; Interrupção Kernel Linux
         
         ;ENTRADA DE TECLADO PARA ESCOLHA DE PINO DE ORIGEM
@@ -65,10 +65,10 @@ section .text
         int 0x80                        ; Interrupção Kernel Linux
         
         ;MENSAGEM PARA ESCOLHA DE PINO DE DESTINO
-        mov edx,len_destino             ; recebe o tamanho da mensagem
-        mov ecx,escolha_destino         ; recebe a mensagem
-        mov ebx,1                       ; entrada padrão 
-        mov eax,4                       ; informa que será uma escrita no ecrã
+        mov edx, len_destino             ; recebe o tamanho da mensagem
+        mov ecx, escolha_destino         ; recebe a mensagem
+        mov ebx, 1                       ; entrada padrão 
+        mov eax, 4                       ; informa que será uma escrita no ecrã
         int 0x80                        ; Interrupção Kernel Linux
         
         ;ENTRADA DE TECLADO PARA ESCOLHA DE PINO DE DESTINO
@@ -79,10 +79,10 @@ section .text
         int 0x80                        ; Interrupção Kernel Linux
 
         ;MENSAGEM PARA ESCOLHA DE PINO DE TRABALHO
-        mov edx,len_trabalho             ; recebe o tamanho da mensagem
-        mov ecx,escolha_trabalho         ; recebe a mensagem
-        mov ebx,1                       ; entrada padrão 
-        mov eax,4                       ; informa que será uma escrita no ecrã
+        mov edx, len_trabalho             ; recebe o tamanho da mensagem
+        mov ecx, escolha_trabalho         ; recebe a mensagem
+        mov ebx, 1                       ; entrada padrão 
+        mov eax, 4                       ; informa que será uma escrita no ecrã
         int 0x80                        ; Interrupção Kernel Linux
         
         ;ENTRADA DE TECLADO PARA ESCOLHA DE PINO DE TRABALHO
@@ -133,21 +133,21 @@ section .text
 ;______________________CONVERSÃO DE ASCII PARA INTEGER;
 
 _atoi:
-    xor     eax, eax                    ; Limpa o registrador (define o bit resultante para 1 , se e somente se os bits dos operandos são diferentes. Se os bits dos operandos são os mesmos ( ambos 0 ou ambos 1 ) , o bit resultante é limpo para 0)
-    mov     ebx, 10                     ; EBX vai ser o registrador auxiliar de multiplicação.
+    xor eax, eax                    ; Limpa o registrador (define o bit resultante para 1 , se e somente se os bits dos operandos são diferentes. Se os bits dos operandos são os mesmos ( ambos 0 ou ambos 1 ) , o bit resultante é limpo para 0)
+    mov ebx, 10                     ; EBX vai ser o registrador auxiliar de multiplicação.
     
     .loop:
-        movzx   ecx, byte [edx]         ; Mover um byte de EDX para ECX. [Representando um "nÃºmero"]
-        inc     edx                     ; Aumenta o EDX para que aponte para o prÃ³ximo byte.
-        cmp     ecx, '0'                ; Comparar ECX com '0'
-        jb      .done                   ; Caso for menor, pule pra linha .done
-        cmp     ecx, '9'                ; Comparar ECX com '9'
-        ja      .done                   ; Caso for maior, pule pra linha .done
+        movzx ecx, byte [edx]       ; Mover um byte de EDX para ECX. [Representando um "nÃºmero"]
+        inc edx                     ; Aumenta o EDX para que aponte para o prÃ³ximo byte.
+        cmp ecx, '0'                ; Comparar ECX com '0'
+        jb .done                    ; Caso for menor, pule pra linha .done
+        cmp ecx, '9'                ; Comparar ECX com '9'
+        ja .done                    ; Caso for maior, pule pra linha .done
         
-        sub     ecx, '0'                ; Subtrai a "string" de 'zero', irá "transformar em int"
-        imul    eax, ebx                ; Multiplica por EBX, na primeira interação resultado Ã© 0!
-        add     eax, ecx                ; Adiciona o valor de ECX que foi "convertido" a EAX
-        jmp     .loop                   ; Fazer isso até chegar em uma das comparações acima.
+        sub ecx, '0'                ; Subtrai a "string" de 'zero', irá "transformar em int"
+        imul eax, ebx               ; Multiplica por EBX, na primeira interação resultado Ã© 0!
+        add eax, ecx                ; Adiciona o valor de ECX que foi "convertido" a EAX
+        jmp .loop                   ; Fazer isso até chegar em uma das comparações acima.
     
     .done:
         ret 
@@ -163,7 +163,7 @@ _atoi:
         ;[ebp+20] = pino de destino
 
         push ebp                        ; salva o registrador ebp na pilha
-        mov ebp,esp                     ; ebp recebe o endereço do topo da pilha
+        mov ebp, esp                     ; ebp recebe o endereço do topo da pilha
 
         mov eax,[ebp+8]                 ; pega o a posição do primeiro elemento da pilha e mov para eax
         cmp eax,0x0                     ; cmp faz o comparativo do valor que está em eax com 0x0 = 0 em hexadecimal 
@@ -178,18 +178,18 @@ _atoi:
         call anti                       ; Chama a função anti(recursividade)
 
         ;PASSO2 - MOVER PINO E IMPRIMIR
-        add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
+        add esp, 12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
         push dword [ebp+16]             ; pega o pino de destino
         push dword [ebp+12]             ; coloca na pilha o pino de origem
         push dword [ebp+8]              ; coloca na pilha o pino de o numero de disco inicial
         call imprime                    ; Chama a função 'imprime'
         
         ;PASSO3 - RECURSIVIDADE
-        add esp,12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
+        add esp, 12                      ; libera mais 12 bits de espaço (20 - 8) Último e primeiro parâmetro
         push dword [ebp+12]             ; coloca na pilha o pino de origem
         push dword [ebp+16]             ; coloca na pilha o pino de destino
         push dword [ebp+20]             ; coloca na pilha o pino de trabalho
-        mov eax,[ebp+8]                 ; move para o registrador eax o espaço reservado ao número de discos atuais
+        mov eax, [ebp+8]                 ; move para o registrador eax o espaço reservado ao número de discos atuais
         dec eax                         ; decrementa 1 de eax
         push dword eax                  ; poe eax na pilha
         call anti                       ; (recursividade)
@@ -199,9 +199,9 @@ _atoi:
     anti:
 
         push ebp                        ; salva o registrador ebp na pilha
-        mov ebp,esp                     ; ebp recebe o endereço do topo da pilha
+        mov ebp, esp                    ; ebp recebe o endereço do topo da pilha
 
-        mov eax,[ebp+8]                 ; pega o a posição do primeiro elemento da pilha e mov para eax
+        mov eax, [ebp+8]                ; pega o a posição do primeiro elemento da pilha e mov para eax
         cmp eax,0x0                     ; cmp faz o comparativo do valor que está em eax com 0x0 = 0 em hexadecimal 
         jle fim
 
@@ -251,7 +251,7 @@ _atoi:
 
     fim: 
 
-        mov esp,ebp                     ; Move o valor de ebp para esp (guarda em outro registrador)
+        mov esp, ebp                    ; Move o valor de ebp para esp (guarda em outro registrador)
         pop ebp                         ; Remove da pilha (desempilha) o ebp
         ret                             ; Retorna a função de origem (antes de ter chamado a função 'fim')
 
@@ -274,8 +274,8 @@ _atoi:
         mov eax, 4                      ; informa que será uma escrita na tela
         int 0x80                        ; Interrupção para kernel do linux
 
-        mov     esp, ebp                ; Copiando o valor do registrador EBP para o ESP
-        pop     ebp                     ; Recupera valor do topo da pilha para o registrador EBP
+        mov esp, ebp                    ; Copiando o valor do registrador EBP para o ESP
+        pop ebp                         ; Recupera valor do topo da pilha para o registrador EBP
         ret                             ; retornar ao chamador
 
 
@@ -299,9 +299,9 @@ section .data
     ; FORMATAÃ‡ÃƒO DE SAÃ DA
     msg:
 
-                          db        "ORIGEM: "                      
+                          db        "ORIGEM "                      
         pino_origem:      db        " "  
-                          db        " | DESTINO: "     
+                          db        " | DESTINO "     
         pino_destino:     db        " ", 0xa  
         lenght            equ       $-msg
 

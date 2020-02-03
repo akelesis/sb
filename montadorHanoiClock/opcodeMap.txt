@@ -3,7 +3,7 @@ mov ebp, esp | 89 e5 | 2
 mov edx, len | ba 20 00 00 00 | 5
 mov ecx, menu | b9 ilc | 5
 mov ebx, 1 | bb 01 00 00 00 | 5
-mov eax, 4 = b8 04 00 00 00 | 5
+mov eax, 4 | b8 04 00 00 00 | 5
 int 0x80 | cd 80 | 2
 mov edx, 5 | ba 05 00 00 00 | 5
 mov ecx, disco | b9 ilc | 5
@@ -46,8 +46,7 @@ imul eax, ebx | 0f af c3 | 3
 add eax, ecx | 01 c8 | 2
 jmp .loop | eb ilc | 2
 ret | c3 | 1
-mov ebp,esp | 89 e5 | 2
-mov eax,[ebp+8] | 8b 45 08 | 3
+mov eax, [ebp+8] | 8b 45 08 | 3
 cmp eax,0x0 | 83 f8 00 | 3
 jle fim | 0f ilc | 6
 dec eax | 48 | 1
@@ -55,11 +54,11 @@ push dword [ebp+16] | ff 75 10 | 3
 push dword [ebp+20] | ff 75 14 | 3
 push dword [ebp+12] | ff 75 0c | 3
 push dword eax | 50 | 1
-add esp,12 | 83 c4 0c | 3
+add esp, 12 | 83 c4 0c | 3
 push dword [ebp+8] | ff 75 08 | 3
 call imprime | e8 ilc | 5
 jp fim | 7a ilc | 2
-mov esp,ebp | 89 ec | 2
+mov esp, ebp | 89 ec | 2
 pop ebp | 5d | 1
 mov eax, [ebp + 12] | 8b 45 0c | 3
 add al, '0' | 04 30 | 2
