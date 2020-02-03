@@ -123,7 +123,7 @@ for index, letter in enumerate(program):
 for index, block in enumerate(finalProg):
     output.write(finalProg[index])
     if(lineCounter < 7):
-        output.write("    ")
+        output.write(" ")
         lineCounter += 1
     else:
         output.write("\n")
